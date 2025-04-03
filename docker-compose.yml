@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+  client:
+    build: ./client/client
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+    environment:
+      - VITE_API_URL=http://server:8081
+    networks:
+      - auth-network
+
+  server:
+    build: ./server
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=production
+    networks:
+      - auth-network
+  nginx:
+    build: ./Nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - client
+      - server
+    networks:
+      - auth-network
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=crud_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - auth-network
+
+volumes:
+  pgdata:
+
+networks:
+  auth-network:
+    external: true

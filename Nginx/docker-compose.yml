@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  nginx:
+    build: ./Nginx
+    ports:
+      - "80:80"
+    networks:
+      - auth-network
+
+
+networks:
+  auth-network:
+    external: true
