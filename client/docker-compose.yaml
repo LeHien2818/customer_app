@@ -1,12 +1,11 @@
 version: '3.8'
 services:
-  nginx:
+  client:
     build: .
     ports:
-      - "80:80"
+      - "5173:5173"
     networks:
       - auth-network
-    restart: always
 
 networks:
   auth-network:

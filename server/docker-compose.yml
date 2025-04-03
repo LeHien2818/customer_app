@@ -16,11 +16,12 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - db
+      - db              
     environment:
       - NODE_ENV=production
     networks:
       - auth-network
+    restart: always  # Set restart policy to always
 
 volumes:
   pgdata:

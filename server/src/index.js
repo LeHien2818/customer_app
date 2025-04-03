@@ -1,10 +1,10 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import pg from 'pg'; // Import default export
+import pg from 'pg';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 
-const { Pool } = pg; // Destructure Pool from the default export
+const { Pool } = pg;
 
 const app = express();
 app.use(express.json());
@@ -70,8 +70,14 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+
+app.get('/', async(req, res) => {
+  res.send("Hello world");
+})
+
 // Login
 app.post('/api/login', async (req, res) => {
+  res.send("Hello world");
   const { username, password } = req.body;
   try {
     const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
